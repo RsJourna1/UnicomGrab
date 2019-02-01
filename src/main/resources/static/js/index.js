@@ -1,116 +1,156 @@
 layui.use('table', function () {
     var table = layui.table;
-    //最新活动数据表
+    //最新活动大麦数据表
     table.render({
-        elem: '#new_event'
-        , url: '../../data/getUIData'
-        , toolbar: '#toolbarDemo'
+        elem: '#new_event_damai'
+        , url: '../../data/getDamaiUIData/'
+        , toolbar: '#toolbarDemo_damai'
         , title: '数据表'
         , cellMinWidth: 180
         , height: 'full-200'
         , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
-            layout: ['limit', 'prev', 'page', 'next', 'skip', 'count'] //自定义分页布局
+            layout: ['count'] //自定义分页布局
+            // 'limit', 'prev', 'page', 'next', 'skip',
             //,curr: 5 //设定初始在第 5 页
-            , groups: 5 //只显示 1 个连续页码
+            // , groups: 5 //只显示 1 个连续页码
             , first: false //不显示首页
             , last: false //不显示尾页
             , theme: '#FF5722'
         }
         , cols: [[
-            {field: 'dataId', title: 'ID', width: 70, fixed: 'left', unresize: true}
-            , {field: 'eventName', title: '活动名称', width: 250}
-            , {field: 'eventTime', sort: true, title: '活动时间', width: 160}
-            , {field: 'location', title: '活动地点', width: 190}
-            , {field: 'sign', title: '详情'}
-            , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 130}
+            // {field: 'damaiId', title: 'ID', width: 70, fixed: 'left', unresize: true}
+            // ,
+            {field: 'name', title: '活动名称', width: 250}
+            , {field: 'showtime', sort: true, title: '活动时间', width: 160}
+            , {field: 'venue', title: '活动地点', width: 190}
+            , {field: 'description', title: '详情'}
+            , {fixed: 'right', title: '操作', toolbar: '#barDemo_damai', width: 130}
         ]]
     });
 
+    //最新活动豆瓣数据表
+    table.render({
+        elem: '#new_event_douban'
+        , url: '../../data/getDoubanUIData'
+        , toolbar: '#toolbarDemo_douban'
+        , title: '数据表'
+        , cellMinWidth: 180
+        , height: 'full-200'
+        , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+            layout: ['count'] //自定义分页布局
+            // 'limit', 'prev', 'page', 'next', 'skip',
+            //,curr: 5 //设定初始在第 5 页
+            // , groups: 5 //只显示 1 个连续页码
+            , first: false //不显示首页
+            , last: false //不显示尾页
+            , theme: '#FF5722'
+        }
+        , cols: [[
+            // {field: 'doubanId', title: 'ID', width: 70, fixed: 'left', unresize: true}
+            // ,
+            {field: 'name', title: '活动名称', width: 250}
+            , {field: 'showtime', sort: true, title: '活动时间', width: 160}
+            , {field: 'venue', title: '活动地点', width: 190}
+            , {field: 'description', title: '详情'}
+            , {fixed: 'right', title: '操作', toolbar: '#barDemo_douban', width: 130}
+        ]]
+    });
     //正在跟进数据表
+    var username = $("#usernameFlag").val();
     table.render({
         elem: '#do_event'
-        , url: '../../data/getAgreeingData'
+        , url: '../../data/getAgreeingData/'+username
         , toolbar: '#toolbarDemo1'
         , title: '数据表'
         , cellMinWidth: 180
         , height: 'full-200'
         , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
-            layout: ['limit', 'prev', 'page', 'next', 'skip', 'count'] //自定义分页布局
+            layout: ['count'] //自定义分页布局
+            // 'limit', 'prev', 'page', 'next', 'skip',
             //,curr: 5 //设定初始在第 5 页
-            , groups: 5 //只显示 1 个连续页码
+            // , groups: 5 //只显示 1 个连续页码
             , first: false //不显示首页
             , last: false //不显示尾页
             , theme: '#FF5722'
         }
         , cols: [[
-            {field: 'agreeDataId', title: 'ID', width: 70, fixed: 'left', unresize: true}
-            , {field: 'eventName', title: '活动名称'}
-            , {field: 'eventTime', sort: true, title: '活动时间'}
-            , {field: 'location', title: '活动地点'}
+            // {field: 'agreeDataId', title: 'ID', width: 70, fixed: 'left', unresize: true}
+            // ,
+            {field: 'name', title: '活动名称'}
+            , {field: 'showtime', sort: true, title: '活动时间'}
+            , {field: 'venue', title: '活动地点'}
             , {field: 'picName', title: '负责人', width: 100}
             , {field: 'picNum', title: '负责人电话', width: 150}
+            , {field: 'realName', title: '操作员', width: 100}
 
-            , {fixed: 'right', title: '操作', toolbar: '#barDemo1', fixed: 'right',width: 100}
+            , {fixed: 'right', title: '操作', toolbar: '#barDemo1', fixed: 'right', width: 120}
         ]]
     });
     //不跟进的活动数据表
     table.render({
         elem: '#not_follow'
-        , url: '../../data/getRefuseData'
+        , url: '../../data/getRefuseData/'+username
         , toolbar: '#toolbarDemo2'
         , title: '数据表'
         , cellMinWidth: 180
         , height: 'full-200'
         , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
-            layout: ['limit', 'prev', 'page', 'next', 'skip', 'count'] //自定义分页布局
+            layout: ['count'] //自定义分页布局
+            // 'limit', 'prev', 'page', 'next', 'skip',
             //,curr: 5 //设定初始在第 5 页
-            , groups: 5 //只显示 1 个连续页码
+            // , groups: 5 //只显示 1 个连续页码
             , first: false //不显示首页
             , last: false //不显示尾页
             , theme: '#FF5722'
         }
         , cols: [[
-            {field: 'refuseDataId', title: 'ID', width: 70, fixed: 'left', unresize: true}
-            , {field: 'eventName', title: '活动名称', width: 250}
-            , {field: 'eventTime', sort: true, title: '活动时间', width: 160}
-            , {field: 'location', title: '活动地点'}
-            , {field: 'sign', title: '详情'}
+            // {field: 'refuseDataId', title: 'ID', width: 70, fixed: 'left', unresize: true}
+            // ,
+            {field: 'name', title: '活动名称', width: 250}
+            , {field: 'showtime', sort: true, title: '活动时间', width: 160}
+            , {field: 'venue', title: '活动地点'}
+            , {field: 'description', title: '详情'}
             , {field: 'refuseReason', title: '不跟进原因', minwidth: 180, style: 'color: #CD3700;'}
+            , {field: 'realName', title: '操作员', width: 100}
         ]]
     });
     // 已完成的活动数据表
     table.render({
         elem: '#done_event'
-        , url: '../../data/getFinishData'
+        , url: '../../data/getFinishData/'+username
         , toolbar: '#toolbarDemo3'
         , title: '数据表'
         , cellMinWidth: 180
         , height: 'full-200'
         , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
-            layout: ['limit', 'prev', 'page', 'next', 'skip', 'count'] //自定义分页布局
+            layout: ['count'] //自定义分页布局
+            // 'limit', 'prev', 'page', 'next', 'skip',
             //,curr: 5 //设定初始在第 5 页
-            , groups: 5 //只显示 1 个连续页码
+            // , groups: 5 //只显示 1 个连续页码
             , first: false //不显示首页
             , last: false //不显示尾页
             , theme: '#FF5722'
         }
         , cols: [[
-            {field: 'agreeDataId', title: 'ID', width: 70, fixed: 'left', unresize: true}
-            , {field: 'eventName', title: '活动名称', width: 250}
-            , {field: 'eventTime', sort: true, title: '活动时间', width: 160}
-            , {field: 'location', title: '活动地点'}
+            // {field: 'agreeDataId', title: 'ID', width: 70, fixed: 'left', unresize: true}
+            // ,
+            {field: 'name', title: '活动名称', width: 250}
+            , {field: 'showtime', sort: true, title: '活动时间', width: 160}
+            , {field: 'venue', title: '活动地点'}
             , {field: 'picName', title: '负责人', minwidth: 80}
             , {field: 'picNum', title: '负责人电话', minwidth: 150}
-            , {field: 'finalNum', title: '最终发展量(户)', width: 140, style: 'color:green', fixed: 'right'}
+            , {field: 'finalNum', title: '最终发展情况', width: 140, style: 'color:green', fixed: 'right'}
+            , {field: 'realName', title: '操作员', width: 100}
         ]]
     });
 
     //监听行工具事件
-    table.on('tool(new_event)', function (obj) {
+    //大麦
+    table.on('tool(new_event_damai)', function (obj) {
         var data = obj.data;
-        var formhtml1 = '<div class="formctrl"><form class="layui-form layui-form-pane" action=""><div class="layui-form-item"><label class="layui-form-label"><b>现场负责人</b></label><div class="layui-input-inline"><input id="picName" type="text" name="picName" lay-verify="required" placeholder="请输入负责人姓名" autocomplete="off" class="layui-input"></div></div><div class="layui-form-item"><label class="layui-form-label"><b>联系方式</b></label><div class="layui-input-inline"><input type="text" id="picNum" name="picNum" lay-verify="required" placeholder="请输入负责人电话号码" autocomplete="off" class="layui-input"></div></div><div class="layui-form-item"><div class="layui-input-block"><button id="agreeButton" class="layui-btn">跟进</button></div></div></form></div> '
-        var formhtml2 = '<div class="formctrl"><form class="layui-form layui-form-pane" action=""><div class="layui-form-item layui-form-text"><label class="layui-form-label"><b>请在下方填写不跟进的原因</b></label><div class="layui-input-block"><textarea placeholder="请输入内容" id="refuseReason" name="refuseReason" class="layui-textarea"></textarea></div></div><div class="layui-form-item"><div class="layui-input-block"><button id="refuseButton" class="layui-btn">确定</button></div></div></form></div> '
-        //点击跟进之后的操作
+        var formhtml1 = '<div class="formctrl"><form class="layui-form layui-form-pane" action=""><div class="layui-form-item"><label class="layui-form-label"><b>现场负责人</b></label><div class="layui-input-inline"><input id="picDamaiName" type="text" name="picDamaiName" lay-verify="required" placeholder="请输入负责人姓名" autocomplete="off" class="layui-input"></div></div><div class="layui-form-item"><label class="layui-form-label"><b>联系方式</b></label><div class="layui-input-inline"><input type="text" id="picDamaiNum" name="picDamaiNum" lay-verify="required" placeholder="请输入负责人电话号码" autocomplete="off" class="layui-input"></div></div><div class="layui-form-item"><div class="layui-input-block"><button id="agreeDamaiButton" class="layui-btn">跟进</button></div></div></form></div> '
+        var formhtml2 = '<div class="formctrl"><form class="layui-form layui-form-pane" action=""><div class="layui-form-item layui-form-text"><label class="layui-form-label"><b>请在下方填写不跟进的原因</b></label><div class="layui-input-block"><textarea placeholder="请输入内容" id="refuseDamaiReason" name="refuseDamaiReason" class="layui-textarea"></textarea></div></div><div class="layui-form-item"><div class="layui-input-block"><button id="refuseDamaiButton" class="layui-btn">确定</button></div></div></form></div> '
+        //点击跟进大麦之后的操作
         if (obj.event === 'follow') {
             var index = layer.open({
                 type: 1 //Page层类型
@@ -122,26 +162,146 @@ layui.use('table', function () {
                 , content: formhtml1
             });
 
-            $("#agreeButton").click(function () {
-                var dataId = data.dataId;
-                console.log(dataId);
-                var picName = document.getElementById('picName').value;
-                var picNum = document.getElementById('picNum').value;
-                console.log(picName);
-                console.log(picNum);
+            $("#agreeDamaiButton").click(function () {
+                var username = $("#usernameFlag").val();
+                var realName = $("#userRealNameFlag").val();
+                var md5 = data.md5;
+                var picDamaiName = document.getElementById('picDamaiName').value;
+                var picDamaiNum = document.getElementById('picDamaiNum').value;
                 $.ajax({
                     type: "post",
-                    url: "../../data/agreeData",
+                    url: "../../data/agreeDamaiData",
                     data: {
-                        'agreeDataId': dataId,
-                        'picName': picName,
-                        'picNum': picNum
+                        'md5': md5,
+                        'picName': picDamaiName,
+                        'picNum': picDamaiNum,
+                        'username': username,
+                        'realName': realName
                     },
                     dataType: "json",
                     success: function (data) {
-                        alert(data);
-                        window.parent.location.reload();
-                        layer.close(index);
+                        // alert(data);
+                        if (data == 3) {
+                            alert("发展人或号码不能为空");
+                            window.parent.location.reload();
+                            layer.close(index);
+                        } else if (data == 1) {
+                            alert("操作成功");
+                            window.parent.location.reload();
+                            layer.close(index);
+                        } else if (data == 0) {
+                            alert("操作失败 已有用户操作该数据");
+                            window.parent.location.reload();
+                            layer.close(index);
+                        }
+                    },
+                    error: function (data) {
+                        alert("出错了，返回的data：" + data);
+                    }
+                });
+                return false;
+            })
+
+        } //点击不跟进大麦之后的操作
+        else if (obj.event === 'refuse') {
+            layer.open({
+                type: 1 //Page层类型
+                , area: ['500px', '300px']
+                , title: '请录入信息'
+                , shade: 0.6 //遮罩透明度
+                , maxmin: true //允许全屏最小化
+                , anim: 5 //0-6的动画形式，-1不开启
+                , content: formhtml2
+            });
+            $("#refuseDamaiButton").click(function () {
+                var username = $("#usernameFlag").val();
+                var realName = $("#userRealNameFlag").val();
+                var md5 = data.md5;
+                var refuseReason = document.getElementById('refuseDamaiReason').value;
+                $.ajax({
+                    type: "post",
+                    url: "../../data/refuseDamaiData",
+                    data: {
+                        'md5': md5,
+                        'refuseReason': refuseReason,
+                        'username': username,
+                        'realName': realName
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        // alert(data);
+                        if (data == 3) {
+                            alert("原因不能为空");
+                            window.parent.location.reload();
+                            layer.close(index);
+                        } else if (data == 1) {
+                            alert("操作成功");
+                            window.parent.location.reload();
+                            layer.close(index);
+                        } else if (data == 0) {
+                            alert("操作失败 已有用户操作该数据");
+                            window.parent.location.reload();
+                            layer.close(index);
+                        }
+                    },
+                    error: function (data) {
+                        alert("出错了，返回的data：" + data);
+                    }
+                });
+                return false;
+            })
+        }
+
+    });
+    //豆瓣
+    table.on('tool(new_event_douban)', function (obj) {
+        var data = obj.data;
+        var formhtml3 = '<div class="formctrl"><form class="layui-form layui-form-pane" action=""><div class="layui-form-item"><label class="layui-form-label"><b>现场负责人</b></label><div class="layui-input-inline"><input id="picDoubanName" type="text" name="picDoubanName" lay-verify="required" placeholder="请输入负责人姓名" autocomplete="off" class="layui-input"></div></div><div class="layui-form-item"><label class="layui-form-label"><b>联系方式</b></label><div class="layui-input-inline"><input type="text" id="picDoubanNum" name="picDoubanNum" lay-verify="required" placeholder="请输入负责人电话号码" autocomplete="off" class="layui-input"></div></div><div class="layui-form-item"><div class="layui-input-block"><button id="agreeDoubanButton" class="layui-btn">跟进</button></div></div></form></div> '
+        var formhtml4 = '<div class="formctrl"><form class="layui-form layui-form-pane" action=""><div class="layui-form-item layui-form-text"><label class="layui-form-label"><b>请在下方填写不跟进的原因</b></label><div class="layui-input-block"><textarea placeholder="请输入内容" id="refuseDoubanReason" name="refuseDoubanReason" class="layui-textarea"></textarea></div></div><div class="layui-form-item"><div class="layui-input-block"><button id="refuseDoubanButton" class="layui-btn">确定</button></div></div></form></div> '
+        //点击跟进之后的操作
+        if (obj.event === 'follow') {
+            var index = layer.open({
+                type: 1 //Page层类型
+                , area: ['500px', '300px']
+                , title: '请录入信息'
+                , shade: 0.6 //遮罩透明度
+                , maxmin: true //允许全屏最小化
+                , anim: 5 //0-6的动画形式，-1不开启
+                , content: formhtml3
+            });
+
+            $("#agreeDoubanButton").click(function () {
+                var username = $("#usernameFlag").val();
+                var realName = $("#userRealNameFlag").val();
+                var md5 = data.md5;
+                var picDoubanName = document.getElementById('picDoubanName').value;
+                var picDoubanNum = document.getElementById('picDoubanNum').value;
+                $.ajax({
+                    type: "post",
+                    url: "../../data/agreeDoubanData",
+                    data: {
+                        'md5': md5,
+                        'picName': picDoubanName,
+                        'picNum': picDoubanNum,
+                        'username': username,
+                        'realName': realName
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        // alert(data);
+                        if (data == 3) {
+                            alert("发展人或号码不能为空");
+                            window.parent.location.reload();
+                            layer.close(index);
+                        } else if (data == 1) {
+                            alert("操作成功");
+                            window.parent.location.reload();
+                            layer.close(index);
+                        } else if (data == 0) {
+                            alert("操作失败 已有用户操作该数据");
+                            window.parent.location.reload();
+                            layer.close(index);
+                        }
                     },
                     error: function (data) {
                         alert("出错了，返回的data：" + data);
@@ -159,25 +319,39 @@ layui.use('table', function () {
                 , shade: 0.6 //遮罩透明度
                 , maxmin: true //允许全屏最小化
                 , anim: 5 //0-6的动画形式，-1不开启
-                , content: formhtml2
+                , content: formhtml4
             });
-            $("#refuseButton").click(function () {
-                var dataId = data.dataId;
-                console.log(dataId);
-                var refuseReason = document.getElementById('refuseReason').value;
-                console.log(refuseReason);
+            $("#refuseDoubanButton").click(function () {
+                var username = $("#usernameFlag").val();
+                var realName = $("#userRealNameFlag").val();
+                var md5 = data.md5;
+                var refuseReason = document.getElementById('refuseDoubanReason').value;
+                // console.log(refuseReason);
                 $.ajax({
                     type: "post",
-                    url: "../../data/refuseData",
+                    url: "../../data/refuseDoubanData",
                     data: {
-                        'refuseDateId': dataId,
-                        'refuseReason': refuseReason
+                        'md5': md5,
+                        'refuseReason': refuseReason,
+                        'username': username,
+                        'realName': realName
                     },
                     dataType: "json",
                     success: function (data) {
-                        alert(data);
-                        window.parent.location.reload();
-                        layer.close(index);
+                        // alert(data);
+                        if (data == 3) {
+                            alert("原因不能为空");
+                            window.parent.location.reload();
+                            layer.close(index);
+                        } else if (data == 1) {
+                            alert("操作成功");
+                            window.parent.location.reload();
+                            layer.close(index);
+                        } else if (data == 0) {
+                            alert("操作失败 已有用户操作该数据");
+                            window.parent.location.reload();
+                            layer.close(index);
+                        }
                     },
                     error: function (data) {
                         alert("出错了，返回的data：" + data);
@@ -191,34 +365,36 @@ layui.use('table', function () {
 
     table.on('tool(do_event)', function (obj) {
         var data = obj.data;
-        var formhtml3 = '<div class="formctrl"><form class="layui-form layui-form-pane" action=""><div class="layui-form-item"><label class="layui-form-label"><b>最终发展量</b></label><div class="layui-input-inline"><input type="text" id="finalNum" name="finalNum" lay-verify="required" placeholder="请输入最终发展量" autocomplete="off" class="layui-input"></div></div><div class="layui-form-item"><div class="layui-input-block"><button id="finalNumButton" class="layui-btn">提交</button></div></div></form><div class="tips">Tip: 请确保活动已经开展完成后填写</div></div> '
+        var formhtml5 = '<div class="formctrl"><form class="layui-form layui-form-pane" action=""><div class="layui-form-item layui-form-text"><label class="layui-form-label"><b>请在下方填写具体发展结果</b></label><div class="layui-input-block"><textarea placeholder="请输入内容" id="finalNum" name="finalNum" class="layui-textarea"></textarea></div></div><div class="layui-form-item"><div class="layui-input-block"><button id="finalNumButton" class="layui-btn">提交</button></div></div></form></div> '
 
-        //点击跟进之后的操作
+        //发展量反馈
         if (obj.event === 'done') {
             layer.open({
                 type: 1 //Page层类型
                 , area: ['500px', '300px']
-                , title: ''
+                , title: '请录入信息'
                 , shade: 0.6 //遮罩透明度
                 , maxmin: true //允许全屏最小化
                 , anim: 5 //0-6的动画形式，-1不开启
-                , content: formhtml3
+                , content: formhtml5
             });
             $("#finalNumButton").click(function () {
-                var agreeDataId = data.agreeDataId;
-                console.log(agreeDataId);
+                // var dataId = data.dataId;
+                // console.log(dataId);
+                var md5 = data.md5;
+                // alert(md5);
                 var finalNum = document.getElementById('finalNum').value;
-                console.log(finalNum);
+                // console.log(finalNum);
                 $.ajax({
                     type: "post",
                     url: "../../data/finalNumFeedBack",
                     data: {
-                        'agreeDataId': agreeDataId,
+                        'md5': md5,
                         'finalNum': finalNum
                     },
                     dataType: "json",
                     success: function (data) {
-                        alert(data);
+                        // alert(data);
                         window.parent.location.reload();
                         layer.close(index);
                     },

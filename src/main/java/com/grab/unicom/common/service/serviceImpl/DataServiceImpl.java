@@ -1,13 +1,9 @@
 package com.grab.unicom.common.service.serviceImpl;
 
-import com.grab.unicom.common.dao.AgreeDataMapper;
-import com.grab.unicom.common.dao.DataMapper;
-import com.grab.unicom.common.dao.RefuseDataMapper;
-import com.grab.unicom.common.pojo.AgreeData;
-import com.grab.unicom.common.pojo.Data;
-import com.grab.unicom.common.pojo.LayData;
-import com.grab.unicom.common.pojo.RefuseData;
+import com.grab.unicom.common.dao.*;
+import com.grab.unicom.common.pojo.*;
 import com.grab.unicom.common.service.DataService;
+import com.grab.unicom.common.service.OperateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,64 +13,147 @@ import java.util.List;
 @Service
 public class DataServiceImpl implements DataService {
     @Autowired
-    private DataMapper dataMapper;
-    @Autowired
     private AgreeDataMapper agreeDataMapper;
     @Autowired
     private RefuseDataMapper refuseDataMapper;
+    @Autowired
+    private DamaiListMapper damaiListMapper;
+    @Autowired
+    private DoubanhangzhouListMapper doubanhangzhouListMapper;
+    @Autowired
+    private OperateService operateService;
+    @Autowired
+    UserMapper userMapper;
 
-    //获取最新活动数据
+    //获取大麦最新活动数据
     @Override
-    public LayData getUIData(){
+    public LayData getDamaiUIData() {
         LayData layData = new LayData();
-        List<Data> dataList = new ArrayList<>();
-        dataList = dataMapper.findAll();
+        List<DamaiList> damaiListList = damaiListMapper.findByRemarkNull();
         layData.setCode("0");
         layData.setMsg("");
-        layData.setCount(String.valueOf(dataList.size()));
-        layData.setData(dataList);
+        layData.setCount(String.valueOf(damaiListList.size()));
+        layData.setData(damaiListList);
         return layData;
     }
 
-    //跟进活动
+    //获取豆瓣最新活动数据
     @Override
-    public int agreeData(String agreeDataId, String picName, String picNum) {
+    public LayData getDoubanUIData() {
+        LayData layData = new LayData();
+        List<DoubanhangzhouList> doubanhangzhouListList = doubanhangzhouListMapper.findByRemarkNull();
+        layData.setCode("0");
+        layData.setMsg("");
+        layData.setCount(String.valueOf(doubanhangzhouListList.size()));
+        layData.setData(doubanhangzhouListList);
+        return layData;
+    }
+
+    //跟进大麦活动
+    @Override
+    public int agreeDamaiData(String md5, String picName,
+                              String picNum, String username, String realName) {
+
+        DamaiList damaiList = damaiListMapper.findByMd5(md5);
+        AgreeData checkOK = agreeDataMapper.findByMd5(md5);
+        if (picName == "" || picNum == "") {
+            return 3;
+        } else if (checkOK != null) {
+            return 0;
+        } else {
+            operateService.OperateAgreeData(damaiList.getDamaiId(), damaiList.getMd5(),
+                    damaiList.getName(), damaiList.getShowtime(), damaiList.getVenue(),
+                    "大麦", picName, picNum, username, realName);
+            damaiList.setRemark("跟进");
+            damaiListMapper.save(damaiList);
+            return 1;
+        }
+
+    }
+
+    //跟进豆瓣活动
+    @Override
+    public int agreeDoubanData(String md5, String picName,
+                               String picNum, String username, String realName) {
         AgreeData agreeData = new AgreeData();
-        Data data = new Data();
-        data = dataMapper.findByDataId(agreeDataId);
-        agreeData.setAgreeDataId(data.getDataId());
-        agreeData.setEventName(data.getEventName());
-        agreeData.setEventTime(data.getEventTime());
-        agreeData.setLocation(data.getLocation());
-        agreeData.setPicName(picName);
-        agreeData.setPicNum(picNum);
-        agreeData.setFinalNum(null);
-        agreeDataMapper.save(agreeData);
-        return 1;
+        DoubanhangzhouList doubanhangzhouList = new DoubanhangzhouList();
+        doubanhangzhouList = doubanhangzhouListMapper.findByMd5(md5);
+        AgreeData checkOK = agreeDataMapper.findByMd5(md5);
+        if (picName == "" || picNum == "") {
+            return 3;
+        } else if (checkOK != null) {
+            return 0;
+        } else {
+            operateService.OperateAgreeData(doubanhangzhouList.getDoubanId(),
+                    doubanhangzhouList.getMd5(),
+                    doubanhangzhouList.getName(),
+                    doubanhangzhouList.getShowtime(),
+                    doubanhangzhouList.getVenue(),
+                    "大麦", picName, picNum, username, realName);
+            doubanhangzhouList.setRemark("跟进");
+            doubanhangzhouListMapper.save(doubanhangzhouList);
+            return 1;
+        }
     }
 
-    //不跟进活动
+    //不跟进大麦活动
     @Override
-    public int refuseData(String refuseDateId, String refuseReason){
-        RefuseData refuseData = new RefuseData();
-        Data data = new Data();
-        data = dataMapper.findByDataId(refuseDateId);
-        refuseData.setRefuseDataId(data.getDataId());
-        refuseData.setEventName(data.getEventName());
-        refuseData.setEventTime(data.getEventTime());
-        refuseData.setLocation(data.getLocation());
-        refuseData.setSign(data.getSign());
-        refuseData.setRefuseReason(refuseReason);
-        refuseDataMapper.save(refuseData);
-        return 1;
+    public int refuseDamaiData(String md5, String refuseReason, String username,
+                               String realName) {
+        DamaiList damaiList = new DamaiList();
+        damaiList = damaiListMapper.findByMd5(md5);
+
+        RefuseData checkOK = refuseDataMapper.findByMd5(md5);
+        if (refuseReason == "") {
+            return 3;
+        } else if (checkOK != null) {
+            return 0;
+        } else {
+            operateService.OperateRefuseData(damaiList.getDamaiId(),
+                    damaiList.getMd5(), damaiList.getName(),
+                    damaiList.getShowtime(), damaiList.getVenue(),
+                    damaiList.getDescription(),
+                    "大麦", refuseReason, username, realName);
+            damaiList.setRemark("不跟进");
+            damaiListMapper.save(damaiList);
+            return 1;
+        }
     }
 
-    //获取正在更近活动数据
+    //不跟进豆瓣活动
     @Override
-    public LayData getAgreeingData(){
+    public int refuseDoubanData(String md5, String refuseReason,
+                                String username, String realName) {
+        DoubanhangzhouList doubanhangzhouList = new DoubanhangzhouList();
+        doubanhangzhouList = doubanhangzhouListMapper.findByMd5(md5);
+        RefuseData checkOK = refuseDataMapper.findByMd5(md5);
+        if (refuseReason == "") {
+            return 3;
+        } else if (checkOK != null) {
+            return 0;
+        } else {
+            operateService.OperateRefuseData(doubanhangzhouList.getDoubanId(),
+                    doubanhangzhouList.getMd5(), doubanhangzhouList.getName(),
+                    doubanhangzhouList.getShowtime(), doubanhangzhouList.getVenue(),
+                    doubanhangzhouList.getDescription(),
+                    "豆瓣", refuseReason, username, realName);
+            doubanhangzhouList.setRemark("不跟进");
+            doubanhangzhouListMapper.save(doubanhangzhouList);
+            return 1;
+        }
+    }
+
+    //获取正在跟进活动数据
+    @Override
+    public LayData getAgreeingData(String username) {
         LayData layData = new LayData();
         List<AgreeData> agreeDataList = new ArrayList<>();
-        agreeDataList = agreeDataMapper.findByFinalNumNull();
+        User user = userMapper.findByUsername(username);
+        if (user.getIsAdmin().equals("1")) {
+            agreeDataList = agreeDataMapper.findByFinalNumNullAndUsername(username);
+        } else {
+            agreeDataList = agreeDataMapper.findByFinalNumNull();
+        }
         layData.setCode("0");
         layData.setMsg("");
         layData.setCount(String.valueOf(agreeDataList.size()));
@@ -84,9 +163,9 @@ public class DataServiceImpl implements DataService {
 
     //发展量反馈
     @Override
-    public int finalNumFeedBack(String agreeDataId, String finalNum){
+    public int finalNumFeedBack(String md5, String finalNum) {
         AgreeData agreeData = new AgreeData();
-        agreeData = agreeDataMapper.findByAgreeDataId(agreeDataId);
+        agreeData = agreeDataMapper.findByMd5(md5);
         agreeData.setFinalNum(finalNum);
         agreeDataMapper.save(agreeData);
         return 1;
@@ -94,10 +173,15 @@ public class DataServiceImpl implements DataService {
 
     //不跟进数据展示
     @Override
-    public LayData getRefuseData(){
+    public LayData getRefuseData(String username) {
         LayData layData = new LayData();
         List<RefuseData> refuseDataList = new ArrayList<>();
-        refuseDataList = refuseDataMapper.findAll();
+        User user = userMapper.findByUsername(username);
+        if (user.getIsAdmin().equals("1")) {
+            refuseDataList = refuseDataMapper.findByUsername(username);
+        } else {
+            refuseDataList = refuseDataMapper.findAll();
+        }
         layData.setCode("0");
         layData.setMsg("");
         layData.setCount(String.valueOf(refuseDataList.size()));
@@ -107,10 +191,15 @@ public class DataServiceImpl implements DataService {
 
     //已完成数据展示
     @Override
-    public LayData getFinishData(){
+    public LayData getFinishData(String username) {
         LayData layData = new LayData();
         List<AgreeData> agreeDataList = new ArrayList<>();
-        agreeDataList = agreeDataMapper.findByFinalNumNotNull();
+        User user = userMapper.findByUsername(username);
+        if (user.getIsAdmin().equals("1")) {
+            agreeDataList = agreeDataMapper.findByFinalNumNotNullAndUsername(username);
+        } else {
+            agreeDataList = agreeDataMapper.findByFinalNumNotNull();
+        }
         layData.setCode("0");
         layData.setMsg("");
         layData.setCount(String.valueOf(agreeDataList.size()));

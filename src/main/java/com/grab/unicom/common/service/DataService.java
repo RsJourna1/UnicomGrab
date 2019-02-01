@@ -5,17 +5,25 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface DataService {
-    LayData getUIData();
+    LayData getDamaiUIData();
 
-    int agreeData(String agreeDataId, String picName, String picNum);
+    LayData getDoubanUIData();
 
-    int refuseData(String refuseDateId, String refuseReason);
+    int agreeDamaiData(String md5, String picName, String picNum,
+                       String userName, String realName);
 
-    LayData getAgreeingData();
+    int agreeDoubanData(String md5, String picName, String picNum,
+                        String userName, String realName);
 
-    int finalNumFeedBack(String agreeDataId, String finalNum);
+    int refuseDamaiData(String md5, String refuseReason, String username, String realName);
 
-    LayData getRefuseData();
+    int refuseDoubanData(String md5, String refuseReason, String username, String realName);
 
-    LayData getFinishData();
+    LayData getAgreeingData(String username);
+
+    int finalNumFeedBack(String md5, String finalNum);
+
+    LayData getRefuseData(String username);
+
+    LayData getFinishData(String username);
 }

@@ -26,6 +26,6 @@ public class DataControllerTest {
 //        data.setLocation("杭州智慧网谷小镇");
 //        data.setSign("林宥嘉");
 //        dataMapper.save(data);
-        dataController.agreeData("1","rjj","136");
+//        dataController.agreeData("1","rjj","136");
     }
 }

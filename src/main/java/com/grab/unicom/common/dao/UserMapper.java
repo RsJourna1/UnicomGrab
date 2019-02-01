@@ -5,5 +5,4 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface UserMapper extends MongoRepository<User, String> {
     User findByUsername(String username);
-
 }

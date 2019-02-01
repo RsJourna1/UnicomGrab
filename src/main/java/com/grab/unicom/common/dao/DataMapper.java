@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface DataMapper extends MongoRepository<Data, String> {
     List<Data> findAll();
-
     Data findByDataId(String id);
 
 }

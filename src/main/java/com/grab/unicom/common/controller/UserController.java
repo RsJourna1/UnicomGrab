@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,9 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 public class UserController {
     @Autowired
     private UserMapper userMapper;
-
-    @Autowired
-    private MongoTemplate mongoTemplate;
 
     /**
      * 登录界面
@@ -33,8 +31,9 @@ public class UserController {
     /**
      * 登录功能
      */
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(User user,Model model) {
+    public String login(User user, Model model) {
         String username = user.getUsername();
         String password = user.getPassword();
         //根据用户名查询用户是否存在
@@ -43,7 +42,7 @@ public class UserController {
         if (user1 != null) {
             if (password.equals(user1.getPassword())) {
                 //如果密码正确
-                model.addAttribute("user",user);
+                model.addAttribute("user", user1);
                 return "index";
             } else {
                 //如果密码错误
@@ -55,6 +54,10 @@ public class UserController {
             System.out.println("用户不存在");
             return "error";
         }
+    }
+    @RequestMapping("/loginOut")
+    public String loginOut(){
+        return "login";
     }
 
 }

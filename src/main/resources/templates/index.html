@@ -19,25 +19,40 @@
     <div class="tytle">
         <h1>杭州联通场景抓取系统</h1>
     </div>
-    <div class="userinfo" th:text="'欢迎您，'+${user.username}">欢迎</div>
+    <div class="userinfo" style="float: right">
+        <a style=" color:#FAFAD2" th:text="'欢迎您，'+${user.realName}+'  |  '"></a>
+        <a style="color:#FAFAD2" th:href="@{../index/loginOut}">退出</a>
+    </div>
 </div>
 
 <div class="wapper">
     <div class="layui-tab layui-tab-brief" style="text-align:center !important" lay-filter="test">
         <ul class="layui-tab-title">
-            <li class="layui-this" lay-id="11">最新活动</li>
-            <li lay-id="22">正在跟进</li>
-            <li lay-id="33">放弃跟进</li>
-            <li lay-id="44">已完成</li>
+            <li id="click1" class="layui-this" lay-id="11">最新活动_大麦</li>
+            <li id="click2" lay-id="22">最新活动_豆瓣</li>
+            <li id="click3" lay-id="33">正在跟进</li>
+            <li id="click4" lay-id="44">放弃跟进</li>
+            <li id="click5" lay-id="55">已完成</li>
         </ul>
         <div class="layui-tab-content" style="height: 100px;">
             <div class="layui-tab-item layui-show">
                 <div class="table-area">
-                    <table class="layui-hide" id="new_event" lay-filter="new_event" ></table>
-                    <script type="text/html" id="toolbarDemo">
+                    <table class="layui-hide" id="new_event_damai" lay-filter="new_event_damai"></table>
+                    <script type="text/html" id="toolbarDemo_damai"></script>
+
+                    <script type="text/html" id="barDemo_damai">
+                        <a class="layui-btn layui-btn-xs" lay-event="follow">跟进</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="refuse">不跟进</a>
+                    </script>
+                </div>
+            </div>
+            <div class="layui-tab-item">
+                <div class="table-area">
+                    <table class="layui-hide" id="new_event_douban" lay-filter="new_event_douban"></table>
+                    <script type="text/html" id="toolbarDemo_douban">
                 </script>
 
-                    <script type="text/html" id="barDemo">
+                    <script type="text/html" id="barDemo_douban">
                         <a class="layui-btn layui-btn-xs" lay-event="follow">跟进</a>
                         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="refuse">不跟进</a>
                     </script>
@@ -46,11 +61,11 @@
             <div class="layui-tab-item">
                 <div class="layui-tab-item layui-show">
                     <div class="table-area">
-                        <table class="layui-hide" id="do_event" lay-filter="do_event" ></table>
+                        <table class="layui-hide" id="do_event" lay-filter="do_event"></table>
                         <script type="text/html" id="toolbarDemo1">
                     </script>
                         <script type="text/html" id="barDemo1">
-                            <a class="layui-btn layui-btn-xs" lay-event="done">发展量反馈</a>
+                            <a class="layui-btn layui-btn-xs" lay-event="done">发展情况反馈</a>
                         </script>
                     </div>
                 </div>
@@ -58,7 +73,7 @@
             <div class="layui-tab-item">
                 <div class="layui-tab-item layui-show">
                     <div class="table-area">
-                        <table class="layui-hide" id="not_follow" lay-filter="not_follow" ></table>
+                        <table class="layui-hide" id="not_follow" lay-filter="not_follow"></table>
                         <script type="text/html" id="toolbarDemo2">
                   </script>
 
@@ -68,16 +83,13 @@
             <div class="layui-tab-item">
                 <div class="layui-tab-item layui-show">
                     <div class="table-area">
-                        <table class="layui-hide" id="done_event" lay-filter="done_event" ></table>
-                        <script type="text/html" id="toolbarDemo3">
-                    </script>
-
+                        <table class="layui-hide" id="done_event" lay-filter="done_event"></table>
+                        <script type="text/html" id="toolbarDemo3"></script>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 
     <div id="footer">
         <div class="copyright">
@@ -85,7 +97,26 @@
         </div>
     </div>
 </div>
+<input type="hidden" th:value="${user.realName}" id="userRealNameFlag"/>
+<input type="hidden" th:value="${user.username}" id="usernameFlag"/>
 
+<script>
+    $("#click1").click(function () {
+        window.location.reload();
+    });
+    $("#click2").click(function () {
+        window.location.reload();
+    });
+    $("#click3").click(function () {
+        window.location.reload();
+    });
+    $("#click4").click(function () {
+        window.location.reload();
+    });
+    $("#click5").click(function () {
+        window.location.reload();
+    });
+</script>
 
 </body>
 </html>

@@ -21,51 +21,75 @@ public class DataController {
     private DataService dataService;
 
     //获取最新活动数据
-    @RequestMapping("/getUIData")
+    @RequestMapping("/getDamaiUIData")
     public @ResponseBody
-    LayData getUIData() {
-        return dataService.getUIData();
+    LayData getDamaiUIData() {
+        return dataService.getDamaiUIData();
     }
 
-    //跟进活动
-    @RequestMapping(value = "/agreeData", method = RequestMethod.POST)
+    @RequestMapping("/getDoubanUIData")
     public @ResponseBody
-    int agreeData(String agreeDataId, String picName, String picNum) {
-        return dataService.agreeData(agreeDataId, picName, picNum);
+    LayData getDoubanUIData() {
+        return dataService.getDoubanUIData();
     }
 
-    //不跟进活动
-    @RequestMapping(value = "/refuseData", method = RequestMethod.POST)
+    //跟进大麦活动
+    @RequestMapping(value = "/agreeDamaiData", method = RequestMethod.POST)
     public @ResponseBody
-    int refuseData(String refuseDateId, String refuseReason) {
-        return dataService.refuseData(refuseDateId, refuseReason);
+    int agreeDamaiData(String md5, String picName, String picNum,
+                       String username, String realName) {
+        return dataService.agreeDamaiData(md5, picName, picNum, username, realName);
+    }
+
+    //跟进豆瓣活动
+    @RequestMapping(value = "/agreeDoubanData", method = RequestMethod.POST)
+    public @ResponseBody
+    int agreeDoubanData(String md5, String picName, String picNum,
+                        String username, String realName) {
+        return dataService.agreeDoubanData(md5, picName, picNum, username, realName);
+    }
+
+    //不跟进大麦活动
+    @RequestMapping(value = "/refuseDamaiData", method = RequestMethod.POST)
+    public @ResponseBody
+    int refuseDamaiData(String md5, String refuseReason,
+                        String username, String realName) {
+        return dataService.refuseDamaiData(md5, refuseReason, username, realName);
+    }
+
+    //不跟进豆瓣活动
+    @RequestMapping(value = "/refuseDoubanData", method = RequestMethod.POST)
+    public @ResponseBody
+    int refuseDoubanData(String md5, String refuseReason,
+                         String username, String realName) {
+        return dataService.refuseDoubanData(md5, refuseReason, username, realName);
     }
 
     //正在跟进数据展示
-    @RequestMapping("/getAgreeingData")
+    @RequestMapping("/getAgreeingData/{username}")
     public @ResponseBody
-    LayData getAgreeingData() {
-        return dataService.getAgreeingData();
+    LayData getAgreeingData(@PathVariable String username) {
+        return dataService.getAgreeingData(username);
     }
 
     //发展量反馈
     @RequestMapping(value = "/finalNumFeedBack", method = RequestMethod.POST)
     public @ResponseBody
-    int finalNumFeedBack(String agreeDataId, String finalNum) {
-        return dataService.finalNumFeedBack(agreeDataId, finalNum);
+    int finalNumFeedBack(String md5, String finalNum) {
+        return dataService.finalNumFeedBack(md5, finalNum);
     }
 
     //不跟进数据展示
-    @RequestMapping("/getRefuseData")
+    @RequestMapping("/getRefuseData/{username}")
     public @ResponseBody
-    LayData getRefuseData() {
-        return dataService.getRefuseData();
+    LayData getRefuseData(@PathVariable String username) {
+        return dataService.getRefuseData(username);
     }
 
     //已完成数据展示
-    @RequestMapping("/getFinishData")
+    @RequestMapping("/getFinishData/{username}")
     public @ResponseBody
-    LayData getFinishData() {
-        return dataService.getFinishData();
+    LayData getFinishData(@PathVariable String username) {
+        return dataService.getFinishData(username);
     }
 }

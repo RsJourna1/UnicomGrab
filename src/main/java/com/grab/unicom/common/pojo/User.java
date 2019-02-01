@@ -9,9 +9,11 @@ public class User {
     private String username;
     private String password;
 
-    public User() {
+    private String realName;
 
-    }
+    public String isAdmin;
+
+    public User() {}
 
     public User(String userId, String username, String password) {
         this.userId = userId;
@@ -46,5 +48,21 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public String getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(String isAdmin) {
+        this.isAdmin = isAdmin;
     }
 }

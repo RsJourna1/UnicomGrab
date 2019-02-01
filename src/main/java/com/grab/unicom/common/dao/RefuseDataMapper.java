@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface RefuseDataMapper extends MongoRepository<RefuseData,String> {
     List<RefuseData> findAll();
+    List<RefuseData> findByUsername(String username);
+    RefuseData findByMd5(String md5);
 }
