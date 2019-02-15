@@ -52,7 +52,7 @@ public class DataServiceImpl implements DataService {
     //跟进大麦活动
     @Override
     public int agreeDamaiData(String md5, String picName,
-                              String picNum, String username, String realName) {
+                              String picNum, String username, String realName, String county) {
 
         DamaiList damaiList = damaiListMapper.findByMd5(md5);
         AgreeData checkOK = agreeDataMapper.findByMd5(md5);
@@ -63,7 +63,7 @@ public class DataServiceImpl implements DataService {
         } else {
             operateService.OperateAgreeData(damaiList.getDamaiId(), damaiList.getMd5(),
                     damaiList.getName(), damaiList.getShowtime(), damaiList.getVenue(),
-                    "大麦", picName, picNum, username, realName);
+                    "大麦", picName, picNum, username, realName,county);
             damaiList.setRemark("跟进");
             damaiListMapper.save(damaiList);
             return 1;
@@ -74,7 +74,7 @@ public class DataServiceImpl implements DataService {
     //跟进豆瓣活动
     @Override
     public int agreeDoubanData(String md5, String picName,
-                               String picNum, String username, String realName) {
+                               String picNum, String username, String realName, String county) {
         AgreeData agreeData = new AgreeData();
         DoubanhangzhouList doubanhangzhouList = new DoubanhangzhouList();
         doubanhangzhouList = doubanhangzhouListMapper.findByMd5(md5);
@@ -89,7 +89,7 @@ public class DataServiceImpl implements DataService {
                     doubanhangzhouList.getName(),
                     doubanhangzhouList.getShowtime(),
                     doubanhangzhouList.getVenue(),
-                    "大麦", picName, picNum, username, realName);
+                    "豆瓣", picName, picNum, username, realName,county);
             doubanhangzhouList.setRemark("跟进");
             doubanhangzhouListMapper.save(doubanhangzhouList);
             return 1;
@@ -99,7 +99,7 @@ public class DataServiceImpl implements DataService {
     //不跟进大麦活动
     @Override
     public int refuseDamaiData(String md5, String refuseReason, String username,
-                               String realName) {
+                               String realName, String county) {
         DamaiList damaiList = new DamaiList();
         damaiList = damaiListMapper.findByMd5(md5);
 
@@ -113,7 +113,7 @@ public class DataServiceImpl implements DataService {
                     damaiList.getMd5(), damaiList.getName(),
                     damaiList.getShowtime(), damaiList.getVenue(),
                     damaiList.getDescription(),
-                    "大麦", refuseReason, username, realName);
+                    "大麦", refuseReason, username, realName, county);
             damaiList.setRemark("不跟进");
             damaiListMapper.save(damaiList);
             return 1;
@@ -123,7 +123,7 @@ public class DataServiceImpl implements DataService {
     //不跟进豆瓣活动
     @Override
     public int refuseDoubanData(String md5, String refuseReason,
-                                String username, String realName) {
+                                String username, String realName, String county) {
         DoubanhangzhouList doubanhangzhouList = new DoubanhangzhouList();
         doubanhangzhouList = doubanhangzhouListMapper.findByMd5(md5);
         RefuseData checkOK = refuseDataMapper.findByMd5(md5);
@@ -136,7 +136,7 @@ public class DataServiceImpl implements DataService {
                     doubanhangzhouList.getMd5(), doubanhangzhouList.getName(),
                     doubanhangzhouList.getShowtime(), doubanhangzhouList.getVenue(),
                     doubanhangzhouList.getDescription(),
-                    "豆瓣", refuseReason, username, realName);
+                    "豆瓣", refuseReason, username, realName, county);
             doubanhangzhouList.setRemark("不跟进");
             doubanhangzhouListMapper.save(doubanhangzhouList);
             return 1;

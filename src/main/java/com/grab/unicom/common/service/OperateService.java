@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 public interface OperateService {
     void OperateAgreeData(ObjectId agreeDataId, String md5, String name, String showtime,
                           String venue, String Source, String picName, String picNum,
-                          String username, String realName);
+                          String username, String realName,String county);
 
     void OperateRefuseData(ObjectId damaiId,String md5, String name, String showtime,
                           String venue,String description, String Source,
                           String refuseReason,
-                          String username, String realName);
+                          String username, String realName,String county);
 }

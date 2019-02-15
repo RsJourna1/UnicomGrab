@@ -10,14 +10,14 @@ public interface DataService {
     LayData getDoubanUIData();
 
     int agreeDamaiData(String md5, String picName, String picNum,
-                       String userName, String realName);
+                       String userName, String realName, String county);
 
     int agreeDoubanData(String md5, String picName, String picNum,
-                        String userName, String realName);
+                        String userName, String realName, String county);
 
-    int refuseDamaiData(String md5, String refuseReason, String username, String realName);
+    int refuseDamaiData(String md5, String refuseReason, String username, String realName, String county);
 
-    int refuseDoubanData(String md5, String refuseReason, String username, String realName);
+    int refuseDoubanData(String md5, String refuseReason, String username, String realName, String county);
 
     LayData getAgreeingData(String username);
 

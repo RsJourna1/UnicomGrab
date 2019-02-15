@@ -24,6 +24,8 @@ public class AgreeData {
     private String picName;
     //负责人电话
     private String picNum;
+    //县分
+    private String county;
     //最终发展量
     private String finalNum;
     //操作员用户名
@@ -101,6 +103,14 @@ public class AgreeData {
 
     public void setFinalNum(String finalNum) {
         this.finalNum = finalNum;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
     }
 
     public String getUsername() {

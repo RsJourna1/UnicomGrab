@@ -19,13 +19,6 @@ public class DataControllerTest {
     DataController dataController;
     @Test
     public void test(){
-//        Data data=new Data();
-//        data.setDataId("1");
-//        data.setEventName("2018中国大运河庙会音乐节");
-//        data.setEventTime("2018.11.03-11.04");
-//        data.setLocation("杭州智慧网谷小镇");
-//        data.setSign("林宥嘉");
-//        dataMapper.save(data);
-//        dataController.agreeData("1","rjj","136");
+
     }
 }

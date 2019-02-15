@@ -37,32 +37,32 @@ public class DataController {
     @RequestMapping(value = "/agreeDamaiData", method = RequestMethod.POST)
     public @ResponseBody
     int agreeDamaiData(String md5, String picName, String picNum,
-                       String username, String realName) {
-        return dataService.agreeDamaiData(md5, picName, picNum, username, realName);
+                       String username, String realName, String county) {
+        return dataService.agreeDamaiData(md5, picName, picNum, username, realName, county);
     }
 
     //跟进豆瓣活动
     @RequestMapping(value = "/agreeDoubanData", method = RequestMethod.POST)
     public @ResponseBody
     int agreeDoubanData(String md5, String picName, String picNum,
-                        String username, String realName) {
-        return dataService.agreeDoubanData(md5, picName, picNum, username, realName);
+                        String username, String realName, String county) {
+        return dataService.agreeDoubanData(md5, picName, picNum, username, realName, county);
     }
 
     //不跟进大麦活动
     @RequestMapping(value = "/refuseDamaiData", method = RequestMethod.POST)
     public @ResponseBody
     int refuseDamaiData(String md5, String refuseReason,
-                        String username, String realName) {
-        return dataService.refuseDamaiData(md5, refuseReason, username, realName);
+                        String username, String realName,String county) {
+        return dataService.refuseDamaiData(md5, refuseReason, username, realName,county);
     }
 
     //不跟进豆瓣活动
     @RequestMapping(value = "/refuseDoubanData", method = RequestMethod.POST)
     public @ResponseBody
     int refuseDoubanData(String md5, String refuseReason,
-                         String username, String realName) {
-        return dataService.refuseDoubanData(md5, refuseReason, username, realName);
+                         String username, String realName,String county) {
+        return dataService.refuseDoubanData(md5, refuseReason, username, realName,county);
     }
 
     //正在跟进数据展示

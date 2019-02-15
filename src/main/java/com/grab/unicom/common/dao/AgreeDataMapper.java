@@ -12,4 +12,6 @@ public interface AgreeDataMapper  extends MongoRepository<AgreeData, String> {
     List<AgreeData> findByFinalNumNotNullAndUsername(String username);
     List<AgreeData> findByFinalNumNotNull();
     AgreeData findByMd5(String md5);
+
+
 }

@@ -23,6 +23,8 @@ public class RefuseData {
     private String source;
     //不跟进原因
     private String refuseReason;
+    //县分
+    private String county;
     //操作员用户名
     private String username;
     //操作员真实姓名
@@ -90,6 +92,14 @@ public class RefuseData {
 
     public void setRefuseReason(String refuseReason) {
         this.refuseReason = refuseReason;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
     }
 
     public String getUsername() {

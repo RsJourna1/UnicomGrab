@@ -21,7 +21,7 @@ public class OperateServiceImpl implements OperateService {
     @Override
     public void OperateAgreeData(ObjectId agreeDataId, String md5, String name, String showtime,
                                  String venue, String Source, String picName, String picNum,
-                                 String username, String realName) {
+                                 String username, String realName,String county) {
         AgreeData agreeData = new AgreeData();
         agreeData.setAgreeDataId(agreeDataId);
         agreeData.setMd5(md5);
@@ -31,6 +31,7 @@ public class OperateServiceImpl implements OperateService {
         agreeData.setSource(Source);
         agreeData.setPicName(picName);
         agreeData.setPicNum(picNum);
+        agreeData.setCounty(county);
         agreeData.setUsername(username);
         agreeData.setRealName(realName);
         agreeData.setFinalNum(null);
@@ -42,7 +43,7 @@ public class OperateServiceImpl implements OperateService {
     public void OperateRefuseData(ObjectId refuseDataId, String md5, String name, String showtime,
                                   String venue, String description, String Source,
                                   String refuseReason,
-                                  String username, String realName) {
+                                  String username, String realName,String county) {
         RefuseData refuseData = new RefuseData();
         refuseData.setRefuseDataId(refuseDataId);
         refuseData.setMd5(md5);
@@ -52,6 +53,7 @@ public class OperateServiceImpl implements OperateService {
         refuseData.setDescription(description);
         refuseData.setSource(Source);
         refuseData.setRefuseReason(refuseReason);
+        refuseData.setCounty(county);
         refuseData.setUsername(username);
         refuseData.setRealName(realName);
         refuseDataMapper.save(refuseData);
